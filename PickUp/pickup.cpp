@@ -23,6 +23,7 @@ int check(stack<int> &container, int target){
 // BOARD
 // n번째 줄의 인형
 // board[col][row]
+// test 
 int solution(vector<vector<int>> board, vector<int> moves) {
     int answer = 0;
     stack<int> container;
