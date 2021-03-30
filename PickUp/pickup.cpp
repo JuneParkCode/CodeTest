@@ -26,18 +26,18 @@ int check(stack<int> &container, int target){
 // test 
 int solution(vector<vector<int>> board, vector<int> moves) {
     int answer = 0;
-    stack<int> container;
+    stack<int> container;   // 선입 후출이므로 스택이 적합
     for(int move : moves){  //column 순서로 조사
         auto it = board.begin();
         int i=0;
-        int pos = move -1 ;
+        int pos = move -1 ; // 항상 start idx에 대해서 주의하자.
         while(it!=board.end()){
             int target = board[i][pos];
             if(target){
                 board[i][pos] = 0;
                 answer += check(container,target);
                 break;
-            }''
+            }
             i++,it++;
         }
     }
