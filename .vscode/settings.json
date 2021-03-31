@@ -2,6 +2,10 @@
     "files.associations": {
         "vector": "cpp",
         "iosfwd": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "__tree": "cpp",
+        "map": "cpp",
+        "unordered_set": "cpp",
+        "algorithm": "cpp"
     }
 }
