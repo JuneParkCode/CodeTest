@@ -6,6 +6,7 @@
         "__tree": "cpp",
         "map": "cpp",
         "unordered_set": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "ostream": "cpp"
     }
 }
