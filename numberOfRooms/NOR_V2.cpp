@@ -13,7 +13,7 @@ using namespace std;
 // 교차 = 공간의 형성?
 // 대각선 교차 --> newPos여도 공간 형성 ,old pos일 경우 온 방향에 대해서 각각 공간이 하나씩 만들어짐
 // 일반 교차 --> oldPos에 대해서만 공간 형성.
-const int ARROW[8][2] {{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1},{-1,0},{-1,-1}};
+const int ARROW[8][2] {{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1},{-1,0},{-1,1}};
 struct position{
     int posX;
     int posY;
@@ -50,7 +50,7 @@ struct position{
 bool crosscheck(position &curPos,position &nextPos,position &xtargetPos,position &ytargetPos,int arrow){
     // 대각선인 경우에 대해서 크로스 체크
     // tArrow = 교차될 수 있는 방향의 arrow..
-    int tArrow;
+    int tArrow=0;
     if(arrow == 1)//1,1
         tArrow = 7;
     else if(arrow == 3)//1,-1
@@ -59,8 +59,10 @@ bool crosscheck(position &curPos,position &nextPos,position &xtargetPos,position
         tArrow = 3;
     else if(arrow == 7)//-1,1
         tArrow = 1;
-    else
+    else{
+       
         return false;
+    }
     if(xtargetPos.isVisitedRoad(tArrow)){
         if(curPos.isCrossed(arrow)){
             return false;
@@ -73,7 +75,7 @@ bool crosscheck(position &curPos,position &nextPos,position &xtargetPos,position
             return true;
         }
     }
-    return true;
+    return false;
 }
 int solution(vector<int> arrows) {
     // position에 다시 닿을 때마다 공간 생성으로 인지.
@@ -107,13 +109,17 @@ int solution(vector<int> arrows) {
             posMap[x][y] = nextPos;
             forDelete.push_back(nextPos);
         }
-        position *xtargetPos = posMap[curPos->posX + ARROW[a][0]][curPos->posY];
-        position *ytargetPos = posMap[curPos->posX][curPos->posY + ARROW[a][0]];
-        answer += crosscheck(*curPos,*nextPos,*xtargetPos,*ytargetPos,a);
+        // Check it is crossed
+        int tX=curPos->posX;
+        int tY=curPos->posY;
+        position *xtargetPos = posMap[tX+ARROW[a][0]][tY];
+        position *ytargetPos = posMap[tX][tY+ARROW[a][1]];
+        if(xtargetPos != nullptr && ytargetPos != nullptr)
+            answer += crosscheck(*curPos,*nextPos,*xtargetPos,*ytargetPos,a);
         // 지나온 길 기록
         curPos->check2Go(a);
         nextPos->checkFrom(a);
-        // 포지션 재할당.
+        // 포지션 재할당
         prevPos = curPos;
         curPos = nextPos;
     }
@@ -122,6 +128,6 @@ int solution(vector<int> arrows) {
     return answer;
 }
 int main(){
-    vector<int> arrows{6, 2, 4, 0, 5, 0, 6, 4, 2, 4, 2, 0};
+    vector<int> arrows{5,2,7,1,6,3};
     cout << solution(arrows);
 }
