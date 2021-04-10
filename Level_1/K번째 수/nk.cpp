@@ -5,7 +5,7 @@
 using namespace std;
 
 //submitted...
-vector<int> solution(vector<int> array, vector<vector<int>> commands) {d
+vector<int> solution(vector<int> array, vector<vector<int>> commands) {
     vector<int> answer;
     for(auto command :commands){
         vector<int> sortVec;

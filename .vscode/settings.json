@@ -8,6 +8,10 @@
         "unordered_set": "cpp",
         "algorithm": "cpp",
         "ostream": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "__split_buffer": "cpp",
+        "deque": "cpp",
+        "stack": "cpp",
+        "utility": "cpp"
     }
 }
