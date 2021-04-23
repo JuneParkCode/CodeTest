@@ -6,6 +6,7 @@ using namespace std;
 /*
 내 생각에 이것도 좀 비효율적인 방법인 것 같다.
 다른 방법이 있을까?
+
 */
 vector<int> solution(vector<int> progresses, vector<int> speeds) {
     const int SIZE =progresses.size();
