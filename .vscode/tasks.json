@@ -6,7 +6,7 @@
             "command": "/usr/bin/g++",
             "args": [
                 "-g",
-                "${fileDirname}/*.cpp",	// 디렉토리내 다른 파일도 포함하기 위함. 없으면 헤더 파일이 포함이 안됨
+                "${file}",	// 디렉토리내 다른 파일도 포함하기 위함. 없으면 헤더 파일이 포함이 안됨
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-std=c++17",
