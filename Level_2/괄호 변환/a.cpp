@@ -1,6 +1,5 @@
 #include <string>
 #include <vector>
-#include <stack>
 
 using namespace std;
 
@@ -9,26 +8,23 @@ bool isValid(string p){
     for(auto c: p){
         if(c=='(') s.push('(');
         else if(c==')'){
-            if(s.top() == '(') s.pop();
-            else return 0;
+            if(s.empty() || s.top() != '(') return 0;
+            else s.pop();
         }
     }
+    
     return s.empty();
 }
 string reverse(string p){
-    stack<char> s;
     string res="";
     for(auto c : p){
-        s.push(c);
-    }
-    while(!s.empty()){
-        res += s.top();
-        s.pop();
+        if(c=='(') res+=')';
+        else if (c==')') res +='(';
     }
     return res;
 }
 
-string solution(string p) {
+string solution(string p){
     if(p=="") return p;
     string u,v;
     int count_open=0;
@@ -39,15 +35,19 @@ string solution(string p) {
         if(c=='(') count_open++;
         else if(c==')') count_close++;
         if(count_open==count_close){
-            u = p.substr(p[0],i); 
-            v = p.substr(p[i],p.length());
+            u = p.substr(0,i);
+            v = p.substr(i,p.length());
             break;
         }
     }
-    if(!isValid(u)){
-        string res = "";
+    if(isValid(u)){
         v = solution(v);
-        u = "(" + reverse(u.substr(1,u.length()-2)) + ")";
+    }
+    else{
+        v = "(" + solution(v) + ")";
+        u = reverse(u.substr(1,u.length()-2));
+        return v+u;
     }
     return u+v;
 }
+
