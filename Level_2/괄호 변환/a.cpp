@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-
+#include <stack>
 using namespace std;
 
 bool isValid(string p){
