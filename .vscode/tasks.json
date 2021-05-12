@@ -6,12 +6,12 @@
             "command": "/usr/bin/g++",
             "args": [
                 "-g",
-                "${file}",	// 디렉토리내 다른 파일도 포함하기 위함. 없으면 헤더 파일이 포함이 안됨
+                "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-std=c++17",
-                "&&", // 앞의 명령어가 성공하면
-                "${fileDirname}/${fileBasenameNoExtension}" //파일을 실행 , 빌드와 동시에 실행용...
+                "&&",
+				"${fileDirname}/${fileBasenameNoExtension}"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -19,10 +19,7 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "detail": "컴파일러: /usr/bin/g++"
         }
     ],
