@@ -36,7 +36,7 @@ vector<string> solution(vector<string> strings)
     {
         unsigned long long n = strToBit(s);
         {
-            find_mask()
+            find_mask();
         }
     }
     return answer;
