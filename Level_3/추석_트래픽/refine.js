@@ -27,11 +27,11 @@ function solution(lines) {
 	});
 	let max = 0;
 	for (const time of verify) {
+		// 해당 구간안에 요청을 검증.
 		const filtered = list.filter((elem) => (time <= elem.s_time && elem.s_time <= time + 999) || (elem.s_time <= time && time <= elem.e_time) || (time <= elem.e_time && elem.e_time <= time + 999));
 		if (filtered.length > max) {
 			max = filtered.length;
 		}
-		//console.log(time,filtered);
 	}
 	return max;
 }
