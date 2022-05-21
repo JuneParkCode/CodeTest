@@ -67,6 +67,7 @@
 		"tuple": "cpp",
 		"type_traits": "cpp",
 		"typeinfo": "cpp",
-		"regex": "cpp"
+		"regex": "cpp",
+		"version": "cpp"
 	}
 }
