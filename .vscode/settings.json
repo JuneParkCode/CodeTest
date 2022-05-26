@@ -68,6 +68,11 @@
 		"type_traits": "cpp",
 		"typeinfo": "cpp",
 		"regex": "cpp",
-		"version": "cpp"
+		"version": "cpp",
+		"__undef_macros": "cpp",
+		"memory_resource": "cpp",
+		"numeric": "cpp",
+		"random": "cpp",
+		"variant": "cpp"
 	}
 }
