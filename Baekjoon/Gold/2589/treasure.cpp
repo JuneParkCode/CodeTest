@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <string.h>
-#include <stack>
+#include <queue>
 
 #define LMAX 50
 
@@ -9,10 +9,9 @@ using namespace std;
 
 int w;
 int h;
-int mx = 0;
-int info[LMAX][LMAX];
+string info[LMAX];
+
 int check[LMAX][LMAX];
-int _distance[LMAX][LMAX]; // 해당 지점까지의 최단 경로
 int dx[4] = {0, 1, 0, -1};
 int dy[4] = {1, 0, -1, 0};
 
@@ -25,76 +24,62 @@ void getInput()
 	for (int i = 0; i < h; ++i)
 	{
 		cin >> tmp;
-		for (int j = 0; j < w; ++j)
-		{
-			info[i][j] = tmp[j] == 'W' ? 0 : 1;
-		}
+		info[i] = tmp;
 	}
 }
 
-int track(const int row, const int col, const int dist, int &_mx)
+int track(int row, int col)
 {
-	if (row < 0 || col < 0 || row >= h || col >= w || check[row][col] || !info[row][col])
-		return (0);
-	if (_distance[row][col] && dist > _distance[row][col])
-		return (0);
-	int dupChecker = 0;
-	for (int dir = 0; dir < 4; ++dir)
+	if (info[row][col] == 'W')
+		return 0;
+	queue<pair<int, int> > posQ;
+	int max = 1;
+	memset(check, 0, sizeof(check));
+	pair<int ,int> p (row, col);
+	posQ.push(p);
+	check[row][col] = 1;
+	while (!posQ.empty())
 	{
-		dupChecker += (check[row + dy[dir]][col + dx[dir]]);
-		if (dupChecker > 1)
+		p = posQ.front();
+		posQ.pop();
+		row = p.first;
+		col = p.second;
+		for (int dir = 0 ; dir < 4; ++dir)
 		{
-			return (0);
+			int nextRow = row + dy[dir];
+			int nextCol = col + dx[dir];
+			// boundary
+			if (nextRow < 0 || nextCol < 0 ||
+				nextRow >= h || nextCol >= w ||
+				info[nextRow][nextCol] == 'W' ||
+				check[nextRow][nextCol] != 0)
+				continue ;
+			check[nextRow][nextCol] = check[row][col] + 1;
+			max = max < check[nextRow][nextCol] ? check[nextRow][nextCol] : max;
+			pair<int, int> t(nextRow, nextCol);
+			posQ.push(t);
 		}
 	}
-	int distArr[4];
-	int res = 0;
-	check[row][col] = true;
-	if (!_distance[row][col] || dist < _distance[row][col])
-	{
-		_distance[row][col] = dist;
-	}
-	for (int dir = 0; dir < 4; ++dir)
-	{
-		track(row + dy[dir], col + dx[dir], dist + 1, _mx);
-	}
-	check[row][col] = false;
-	return (res);
+	return (max - 1);
 }
 
-int getMax()
+int solver()
 {
 	int res = 0;
+	int max = 0;
 	for (int i = 0; i < h; ++i)
 	{
 		for (int j = 0; j < w; ++j)
 		{
-			res = res < _distance[i][j] ? _distance[i][j] : res;
+			res = track(i, j);
+			max = max < res ? res : max;
 		}
 	}
-	return (res);
-}
-
-void solver()
-{
-	int res;
-	for (int i = 0; i < h; ++i)
-	{
-		for (int j = 0; j < w; ++j)
-		{
-			res = 0;
-			memset(_distance, 0, sizeof(_distance));
-			track(i, j, 0, res);
-			res = getMax();
-			mx = mx < res ? res : mx;
-		}
-	}
+	return (max);
 }
 
 int main(void)
 {
 	getInput();
-	memset(check, 0, sizeof(check));
-	solver();
-	cout << mx;
+	cout << solver();
 }
