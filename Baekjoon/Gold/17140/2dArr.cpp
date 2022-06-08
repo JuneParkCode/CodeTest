@@ -89,11 +89,6 @@ void f_R(vector<vector<int>  > &v)
 		while (it != sorted.end() && _v.size() <= 100)
 		{
 			_v.push_back((*it).first);
-			++it;
-		}
-		it = sorted.begin();
-		while (it != sorted.end() && _v.size() <= 100)
-		{
 			_v.push_back((*it).second);
 			++it;
 		}
@@ -138,11 +133,6 @@ void f_C(vector<vector<int> > &v)
 		while (it != sorted.end() && _v.size() <= 100)
 		{
 			_v.push_back((*it).first);
-			++it;
-		}
-		it = sorted.begin();
-		while (it != sorted.end() && _v.size() <= 100)
-		{
 			_v.push_back((*it).second);
 			++it;
 		}
@@ -185,7 +175,7 @@ int main(void)
 	int r, c, k;
 	int tries = 0;
 	getInput(r, c, k ,v);
-	while (v[r - 1][c - 1] != k && tries <= 100)
+	while ((v.size() < r  || v[0].size() < c || v[r - 1][c - 1] != k) && tries <= 100)
 	{
 		if (v.size() >= v[0].size())
 		{
@@ -200,7 +190,7 @@ int main(void)
 		// printV(v);
 		++tries;
 	}
-	if (tries == 100)
+	if (tries > 100)
 		cout << -1;
 	else
 		cout << tries;
