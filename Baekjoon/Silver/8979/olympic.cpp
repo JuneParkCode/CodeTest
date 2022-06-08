@@ -39,22 +39,30 @@ int main(void)
 	for (int i = 0; i < n; ++i)
 	{
 		cin >> tmp;
-		arr[tmp - 1][0] = tmp;
+		arr[tmp][0] = tmp;
 		nations[i] = i + 1;
 		for (int j = 1; j < 4; ++j)
 		{
-			cin >> arr[tmp - 1][j];
+			cin >> arr[tmp][j];
 		}
 	}
 	sort(nations, nations + n, cmp);
+
 	int rank = 1;
-	for (int i = 1; nations[i - 1] != m; ++i)
+	int i = 1;
+	if (nations[0] == m)
 	{
-		rank += !cmp2(i, i - 1);
-		if (nations[i] == m)
-		{
-			cout << rank;
-		}
+		cout << 1;
+		return (0);
 	}
+	while (1)
+	{
+		if (cmp2(nations[i], nations[i - 1]) == false)
+			rank = i + 1;
+		if (nations[i] == m)
+			break;
+		++i;
+	}
+	cout << rank;
 	return (0);
 }
