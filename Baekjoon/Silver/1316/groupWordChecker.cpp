@@ -49,15 +49,14 @@ string getWordFromUser()
 	return (newWord);
 }
 
-
 int getNumberOfGroupWords(Inputs &userInput)
 {
 	vector<string> &words = userInput.words;
 	int numberOfGroupWords = 0;
 
-	for (int wordIdx = 0; wordIdx < userInput.numberOfWords; ++wordIdx)
+	for (string &word : words)
 	{
-		numberOfGroupWords += isGroupWord(words[wordIdx]);
+		numberOfGroupWords += isGroupWord(word);
 	}
 	return (numberOfGroupWords);
 }
@@ -82,8 +81,7 @@ int skipSequenceCharacter(string &word, int charIdx)
 {
 	int searchIdx = charIdx + 1;
 
-	while (searchIdx < word.length()
-			&& word[searchIdx] == word[charIdx])
+	while (searchIdx < word.length() && word[searchIdx] == word[charIdx])
 	{
 		++searchIdx;
 	}
