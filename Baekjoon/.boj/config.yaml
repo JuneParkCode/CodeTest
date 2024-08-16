@@ -1,0 +1,28 @@
+general:
+  selenium_browser: "chrome"        # required - firefox | chrome | edge
+  default_filetype: "java"           # optional - default filetype for 'boj add'
+  editor_command: "nvim -o"         # required - code | nvim | ..
+workspace:
+  ongoing_dir: "problems"           # optional - ongoing problem directory. default: ""
+  archive_dir: "archives"           # optional - archive directory.         default: "archives"
+filetype:
+  java:
+    language: "java15"             # required - language  for your submission
+    main: "Main.java"          # required - the main file name
+    source_templates:
+      - "Main.java"
+    compile: "javac Main.java"
+    run: "java Main"            # required - the run command
+    after: "rm -rf *.class"
+
+  cpp:
+    language: "c++17"
+    main: "main.cpp"
+    source_templates:               # optional - these files will be copied into source dir
+      - "main.cpp"
+    root_templates:                 # optional - these files will be copied into root dir
+      - "compile_flags.txt"
+    compile: "g++ -std=c++17 $file" # optional - set this option if you use compile language
+    run: "./a.out"
+    after: "rm -rf a.out"           # optional - command to execute after 'boj run'
+    # other filetypes ..
